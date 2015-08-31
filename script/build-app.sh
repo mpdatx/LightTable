@@ -14,12 +14,11 @@ cd "$(dirname "${BASH_SOURCE[0]}")"; cd ..
 ELECTRON_DIR="shell/electron"
 
 # from: http://stackoverflow.com/a/17072017/142317
-# Will need to change Atom.app/atom/atom.exe to Electron.app/exe once we move to ^0.24.0 https://github.com/atom/grunt-download-electron/issues/30
 if [ "$(uname)" == "Darwin" ]; then
   OS="mac"
-  EXE="Atom.app/Contents/MacOS/Atom"
-  PLIST="Atom.app/Contents/Info.plist"
-  RESOURCES="Atom.app/Contents/Resources"
+  EXE="Electron.app/Contents/MacOS/Atom"
+  PLIST="Electron.app/Contents/Info.plist"
+  RESOURCES="Electron.app/Contents/Resources"
   PLATFORM_DIR="platform/mac"
 
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
@@ -85,7 +84,7 @@ if [ "$OS" == "mac" ]; then
   FULL_PLIST="$(pwd)/$RELEASE_DIR/$PLIST"
   defaults write $FULL_PLIST CFBundleShortVersionString $VERSION
 
-  mv $RELEASE_DIR/Atom.app $RELEASE_DIR/LightTable.app
+  mv $RELEASE_DIR/Electron.app $RELEASE_DIR/LightTable.app
 
   # Sign app to avoid endless “accept incoming connections” dialogs
   codesign --force --deep --sign - $RELEASE_DIR/LightTable.app
